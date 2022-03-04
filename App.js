@@ -1,57 +1,72 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './screens/HomeScreen';
-import DetailScreen from './screens/DetailScreen';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Text} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function HomeScreen() {
+  return <Text>Home</Text>;
+}
+
+function SearchScreen() {
+  return <Text>Search</Text>;
+}
+
+function NotificationScreen() {
+  return <Text>Notification</Text>;
+}
+
+function MessageScreen() {
+  return <Text>Message</Text>;
+}
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
+      <Tab.Navigator initialRouteName="Home">
+        <Tab.Screen
           name="Home"
           component={HomeScreen}
           options={{
             title: '홈',
-            // Header 블록에 대한 스타일
-            headerStyle: {
-              backgroundColor: '#29b6f6',
-            },
-            // Header의 텍스트, 버튼들 색상
-            headerTintColor: '#ffffff',
-            // 타이틀 텍스트의 스타일
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              fontSize: 20,
-            },
+            tabBarIcon: ({color, size}) => (
+              <Icon name="home" color={color} size={size} />
+            ),
           }}
         />
-        <Stack.Screen
-          name="Detail"
-          component={DetailScreen}
+        <Tab.Screen
+          name="Search"
+          component={SearchScreen}
           options={{
-            headerBackVisible: false,
-            headerLeft: ({onPress}) => (
-              <TouchableOpacity onPress={onPress}>
-                <Text>Left</Text>
-              </TouchableOpacity>
-            ),
-            headerTitle: ({children}) => (
-              <View>
-                <Text>{children}</Text>
-              </View>
-            ),
-            headerRight: () => (
-              <View>
-                <Text>Right</Text>
-              </View>
+            title: '검색',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="search" color={color} size={size} />
             ),
           }}
         />
-      </Stack.Navigator>
+        <Tab.Screen
+          name="Notification"
+          component={NotificationScreen}
+          options={{
+            title: '알림',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="notifications" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Message"
+          component={MessageScreen}
+          options={{
+            title: '메시지',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="message" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
